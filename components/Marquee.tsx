@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Marquee: React.FC = () => {
-    const text = "AdSokoni: Your one-stop shop for data, airtime, and SMS. Refer a friend and earn rewards! We support Safaricom, Airtel, and Telkom.";
+    const text = "Pata data ukiwa na okoa pia blend! Text or call us: 0731323489";
 
     return (
         <div className="bg-gray-100 border-t border-b border-gray-200 w-full overflow-hidden">

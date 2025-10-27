@@ -29,7 +29,7 @@ const NavItem: React.FC<{
                 onClick();
             }}
             className={`flex items-center p-3 text-base font-medium rounded-lg transition-colors duration-200 ${
-                isActive ? 'bg-green-700 text-white' : 'text-gray-200 hover:bg-green-800 hover:text-white'
+                isActive ? 'bg-brand-green-dark text-white' : 'text-gray-200 hover:bg-brand-green-darker hover:text-white'
             }`}
         >
             {icon}
@@ -41,7 +41,7 @@ const NavItem: React.FC<{
 const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, currentPage, onNavigate }) => {
     return (
         <aside
-            className={`fixed top-0 left-0 z-30 w-64 h-full bg-green-600 shadow-2xl transition-transform duration-300 ease-in-out ${
+            className={`fixed top-0 left-0 z-30 w-64 h-full bg-brand-green shadow-2xl transition-transform duration-300 ease-in-out ${
                 isOpen ? 'transform translate-x-0' : 'transform -translate-x-full'
             }`}
             aria-label="Sidebar"
@@ -51,7 +51,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, currentPage, onNav
                      <h2 className="text-2xl font-bold text-white">AdSokoni</h2>
                     <button
                         onClick={onClose}
-                        className="p-2 text-white rounded-full hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-white"
+                        className="p-2 text-white rounded-full hover:bg-brand-green-dark focus:outline-none focus:ring-2 focus:ring-white"
                         aria-label="Close menu"
                     >
                        <CloseIcon className="w-6 h-6" />
@@ -77,7 +77,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, currentPage, onNav
                         isActive={currentPage === 'Settings'}
                         onClick={() => onNavigate('Settings')}
                     />
-                    <hr className="border-green-500 my-2" />
+                    <hr className="border-brand-green my-2" />
                      <NavItem
                         label="Track Order"
                         icon={<TruckIcon className="w-6 h-6" />}

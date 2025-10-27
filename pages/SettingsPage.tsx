@@ -46,7 +46,7 @@ const SettingsPage: React.FC = () => {
                     <button
                         onClick={handleNotificationToggle}
                         className={`relative inline-flex items-center h-6 rounded-full w-11 transition-colors ${
-                            notificationsEnabled ? 'bg-green-600' : 'bg-gray-300'
+                            notificationsEnabled ? 'bg-brand-green' : 'bg-gray-300'
                         }`}
                         aria-checked={notificationsEnabled}
                         role="switch"

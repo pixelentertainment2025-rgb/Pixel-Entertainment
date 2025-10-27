@@ -20,6 +20,21 @@
       }
     }
     </script>
+    <script>
+      // Custom Tailwind configuration to add the new brand color
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'brand-green': '#30B54A',
+              'brand-green-dark': '#299d40', // Darker for hover
+              'brand-green-darker': '#228536', // Even darker
+              'brand-green-light': '#eaf7ed', // Lighter for backgrounds
+            },
+          },
+        },
+      }
+    </script>
     <style>
       /* Apply Poppins as the default font */
       body {

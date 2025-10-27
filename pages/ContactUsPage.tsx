@@ -30,11 +30,11 @@ const ContactUsPage: React.FC = () => {
                 <p className="text-gray-600 mb-4">We'd love to hear from you! Reach out to us through any of the methods below.</p>
                 <div className="space-y-3">
                     <div className="flex items-center text-gray-700">
-                        <PhoneIcon className="w-5 h-5 mr-3 text-green-600" />
-                        <span>+254 712 345 678</span>
+                        <PhoneIcon className="w-5 h-5 mr-3 text-brand-green" />
+                        <span>0731323489</span>
                     </div>
                      <div className="flex items-center text-gray-700">
-                        <MailIcon className="w-5 h-5 mr-3 text-green-600" />
+                        <MailIcon className="w-5 h-5 mr-3 text-brand-green" />
                         <span>support@adsokoni.co.ke</span>
                     </div>
                 </div>
@@ -63,7 +63,7 @@ const ContactUsPage: React.FC = () => {
                         <textarea
                             id="message"
                             rows={4}
-                            className="shadow-sm appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                            className="shadow-sm appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-brand-green focus:border-transparent"
                             value={message}
                             onChange={(e) => setMessage(e.target.value)}
                             required

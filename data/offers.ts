@@ -6,7 +6,7 @@ export const offers: Offer[] = [
         title: 'Safaricom Bonanza!',
         description: 'Get 10GB monthly for only KSh 1,000.',
         provider: NetworkProvider.Safaricom,
-        bgColor: 'bg-green-600',
+        bgColor: 'bg-brand-green',
         textColor: 'text-white',
         backgroundImage: 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=2069&auto=format&fit=crop',
     },

@@ -32,7 +32,7 @@ const AccountPage: React.FC = () => {
     
     const getStatusColor = (status: Transaction['status']) => {
         switch (status) {
-            case 'Completed': return 'text-green-600 bg-green-100';
+            case 'Completed': return 'text-green-600 bg-brand-green-light';
             case 'Pending': return 'text-yellow-600 bg-yellow-100';
             case 'Failed': return 'text-red-600 bg-red-100';
         }
@@ -61,7 +61,7 @@ const AccountPage: React.FC = () => {
             <Card title="Order Summary">
                 <div className="grid grid-cols-3 gap-4 text-center">
                     <div>
-                        <p className="text-2xl font-bold text-green-600">{completedOrders}</p>
+                        <p className="text-2xl font-bold text-brand-green">{completedOrders}</p>
                         <p className="text-sm text-gray-500">Completed</p>
                     </div>
                     <div>

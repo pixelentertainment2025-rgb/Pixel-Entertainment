@@ -8,7 +8,7 @@ interface SpeedometerProps {
 const Speedometer: React.FC<SpeedometerProps> = ({ value }) => {
     const clampedValue = Math.max(0, Math.min(100, value));
     const angle = -90 + (clampedValue / 100) * 180;
-    const color = clampedValue < 40 ? '#ef4444' : clampedValue < 75 ? '#f59e0b' : '#22c55e';
+    const color = clampedValue < 40 ? '#ef4444' : clampedValue < 75 ? '#f59e0b' : '#30B54A';
 
     return (
         <div className="relative w-48 h-24 mx-auto mt-4">

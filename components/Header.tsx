@@ -9,12 +9,12 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ title, onMenuClick }) => {
     return (
-        <header className="bg-green-600 shadow-md w-full sticky top-0 z-10">
+        <header className="bg-brand-green shadow-md w-full sticky top-0 z-10">
             <div className="max-w-md mx-auto p-4 flex items-center justify-between relative h-16">
                 {/* Left Options Button */}
                 <button 
                     onClick={onMenuClick}
-                    className="text-white p-2 rounded-full hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-white/50"
+                    className="text-white p-2 rounded-full hover:bg-brand-green-dark focus:outline-none focus:ring-2 focus:ring-white/50"
                     aria-label="Options"
                 >
                     <MenuIcon className="w-6 h-6" />

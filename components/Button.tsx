@@ -15,7 +15,7 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
     const baseClasses = "w-full font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed";
     const variantClasses = {
-        primary: 'bg-green-600 hover:bg-green-700 text-white',
+        primary: 'bg-brand-green hover:bg-brand-green-dark text-white',
         secondary: 'bg-gray-200 hover:bg-gray-300 text-gray-800',
     };
 

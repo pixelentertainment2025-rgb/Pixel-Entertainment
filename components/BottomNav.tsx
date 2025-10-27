@@ -17,7 +17,7 @@ const NavItem: React.FC<{
 }> = ({ label, icon, isActive, onClick }) => (
     <button
         onClick={onClick}
-        className={`flex flex-col items-center justify-center w-full pt-2 pb-1 transition-colors duration-200 ${isActive ? 'text-green-600' : 'text-gray-500 hover:text-green-600'}`}
+        className={`flex flex-col items-center justify-center w-full pt-2 pb-1 transition-colors duration-200 ${isActive ? 'text-brand-green' : 'text-gray-500 hover:text-brand-green'}`}
     >
         {icon}
         <span className="text-xs">{label}</span>

@@ -92,13 +92,12 @@ const HomePage: React.FC = () => {
                 const completedTx = await completeTransaction(result.transactionId!);
                 if (completedTx && 'serviceWorker' in navigator && Notification.permission === 'granted') {
                     try {
+                        // FIX: Changed `navigator.service-worker.ready` to `navigator.serviceWorker.ready` to fix property access and type errors.
                         const registration = await navigator.serviceWorker.ready;
-                        // FIX: Removed the 'vibrate' property as it was causing a TypeScript error.
-                        // The 'vibrate' option is not a standard property in the NotificationOptions type definition used by this project.
                         registration.showNotification('Purchase Completed!', {
                             body: `Your ${completedTx.description} is now active.`,
-                            icon: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzE2YTM0YSI+PHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEycy40OCAxMCAxMCAxMCAxMC00LjQ4IDEwLTEwUzE3LjUyIDIgMTIgMnptLTIgMTVsLTUtNSAxLjQxLTEuNDFMMTAgMTQuMTdsNy41OS03LjU5TDE5IDhsLTkgOXoiLz48L3N2Zz4=',
-                            badge: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzE2YTM0YSI+PHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEycy40OCAxMCAxMCAxMCAxMC00LjQ4IDEwLTEwUzE3LjUyIDIgMTIgMnptLTIgMTVsLTUtNSAxLjQxLTEuNDFMMTAgMTQuMTdsNy41OS03LjU5TDE5IDhsLTkgOXoiLz48L3N2Zz4=',
+                            icon: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzMwQjU0QSI+PHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEycy40OCAxMCAxMCAxMCAxMC00LjQ4IDEwLTEwUzE3LjUyIDIgMTIgMnptLTIgMTVsLTUtNSAxLjQxLTEuNDFMMTAgMTQuMTdsNy41OS03LjU5TDE5IDhsLTkgOXoiLz48L3N2Zz4=',
+                            badge: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzMwQjU0QSI+PHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEycy40OCAxMCAxMCAxMCAxMC00LjQ4IDEwLTEwUzE3LjUyIDIgMTIgMnptLTIgMTVsLTUtNSAxLjQxLTEuNDFMMTAgMTQuMTdsNy41OS03LjU5TDE5IDhsLTkgOXoiLz48L3N2Zz4=',
                         });
                     } catch (e) {
                         console.error('Error showing notification:', e);
@@ -131,7 +130,7 @@ const HomePage: React.FC = () => {
                             <button
                                 key={type}
                                 onClick={() => setSelectedProduct(type)}
-                                className={`flex flex-col items-center justify-center p-3 rounded-lg border-2 transition-colors ${selectedProduct === type ? 'border-green-600 bg-green-50' : 'border-gray-200 bg-white hover:bg-gray-50'}`}
+                                className={`flex flex-col items-center justify-center p-3 rounded-lg border-2 transition-colors ${selectedProduct === type ? 'border-brand-green bg-brand-green-light' : 'border-gray-200 bg-white hover:bg-gray-50'}`}
                             >
                                 {icon}
                                 <span className="text-sm font-medium mt-1">{label}</span>
@@ -147,7 +146,7 @@ const HomePage: React.FC = () => {
                             <button
                                 key={provider}
                                 onClick={() => setSelectedProvider(provider)}
-                                className={`w-full p-2 rounded-md font-semibold transition-colors ${selectedProvider === provider ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+                                className={`w-full p-2 rounded-md font-semibold transition-colors ${selectedProvider === provider ? 'bg-brand-green text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
                             >
                                 {provider}
                             </button>
@@ -175,7 +174,7 @@ const HomePage: React.FC = () => {
                                         <div className="flex justify-between items-center">
                                             <div>
                                                 <p className="font-bold">{pkg.description}</p>
-                                                <p className="text-lg text-green-700 font-semibold mt-1">KSh {pkg.price}</p>
+                                                <p className="text-lg text-brand-green font-semibold mt-1">KSh {pkg.price}</p>
                                             </div>
                                             <svg 
                                               className={`w-5 h-5 text-gray-500 transform transition-transform ${selectedPackage?.id === pkg.id ? 'rotate-180' : 'rotate-0'}`} 

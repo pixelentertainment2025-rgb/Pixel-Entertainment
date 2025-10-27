@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useCallback } from 'react';
 import { Offer } from '../types';
 
@@ -39,12 +38,12 @@ const Carousel: React.FC<CarouselProps> = ({ items, onBuyNowClick }) => {
                         key={item.id}
                         className={`w-full flex-shrink-0 h-48 p-6 flex flex-col justify-between ${item.textColor} ${!item.backgroundImage ? item.bgColor : ''} bg-cover bg-center`}
                         style={item.backgroundImage ? {
-                            backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${item.backgroundImage})`,
+                            backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${item.backgroundImage})`,
                         } : {}}
                     >
                         <div>
-                            <h3 className="text-xl font-bold">{item.title}</h3>
-                            <p className="mt-1">{item.description}</p>
+                            <h3 className="text-xl font-bold" style={{ textShadow: '1px 1px 3px rgba(0,0,0,0.5)' }}>{item.title}</h3>
+                            <p className="mt-1" style={{ textShadow: '1px 1px 3px rgba(0,0,0,0.5)' }}>{item.description}</p>
                         </div>
                         <button
                             onClick={onBuyNowClick}
