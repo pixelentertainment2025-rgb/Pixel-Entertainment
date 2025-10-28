@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AdSokoni</title>
+
+    <!-- PWA settings -->
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#30B54A">
+    <link rel="apple-touch-icon" href="/icon.svg">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
@@ -23,6 +31,7 @@
     <script>
       // Custom Tailwind configuration to add the new brand color
       tailwind.config = {
+        darkMode: 'class', // Enable dark mode
         theme: {
           extend: {
             colors: {
@@ -49,9 +58,42 @@
       }
     </style>
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <script>
+      // Immediately handle theme to prevent FOUC
+      if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+
+      // Service worker registration
+      const registerServiceWorker = () => {
+        if ('serviceWorker' in navigator) {
+          // Explicitly construct the URL to ensure it's on the correct origin.
+          const swUrl = `${window.location.origin}/service-worker.js`;
+          navigator.serviceWorker.register(swUrl)
+            .then(registration => {
+              console.log('Service Worker registered with scope:', registration.scope);
+              // Request notification permission after successful registration.
+              if ('Notification' in window) {
+                Notification.requestPermission(status => {
+                  console.log('Notification permission status:', status);
+                });
+              }
+            })
+            .catch(error => {
+              console.error('Service Worker registration failed:', error);
+            });
+        }
+      };
+
+      // The 'load' event ensures the page is fully loaded before we try to register the service worker,
+      // which prevents "invalid state" errors.
+      window.addEventListener('load', registerServiceWorker);
+    </script>
     <script type="module" src="index.tsx"></script>
 </body>
 </html>

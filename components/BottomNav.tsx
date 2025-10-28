@@ -17,7 +17,7 @@ const NavItem: React.FC<{
 }> = ({ label, icon, isActive, onClick }) => (
     <button
         onClick={onClick}
-        className={`flex flex-col items-center justify-center w-full pt-2 pb-1 transition-colors duration-200 ${isActive ? 'text-brand-green' : 'text-gray-500 hover:text-brand-green'}`}
+        className={`flex flex-col items-center justify-center w-full pt-2 pb-1 transition-colors duration-200 ${isActive ? 'text-brand-green' : 'text-gray-500 dark:text-gray-400 hover:text-brand-green'}`}
     >
         {icon}
         <span className="text-xs">{label}</span>
@@ -26,7 +26,7 @@ const NavItem: React.FC<{
 
 const BottomNav: React.FC<BottomNavProps> = ({ currentPage, onNavigate }) => {
     return (
-        <nav className="bg-white shadow-t-md w-full border-t border-gray-200">
+        <nav className="bg-white dark:bg-gray-800 shadow-t-md w-full border-t border-gray-200 dark:border-gray-700">
             <div className="flex justify-around">
                 <NavItem
                     label="Home"

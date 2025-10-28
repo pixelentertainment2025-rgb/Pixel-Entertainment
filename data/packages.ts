@@ -9,6 +9,7 @@ export const packages: Record<ProductType, Partial<Record<NetworkProvider, Packa
             { id: 'saf-d-4', description: '2.5GB (Weekly)', price: 250 },
             { id: 'saf-d-5', description: '5GB (Monthly)', price: 500 },
             { id: 'saf-d-6', description: '10GB (Monthly)', price: 1000 },
+            { id: 'saf-d-7', description: '25GB Giga Bundle (Monthly)', price: 1500 },
         ],
         [NetworkProvider.Airtel]: [
             { id: 'air-d-1', description: '100MB (Daily)', price: 20 },

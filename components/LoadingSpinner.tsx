@@ -21,7 +21,7 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ text = 'Loading...', cl
                     </circle>
                 </g>
             </svg>
-            <p className="mt-4 text-lg font-medium text-gray-600" role="status">{text}</p>
+            <p className="mt-4 text-lg font-medium text-gray-600 dark:text-gray-300" role="status">{text}</p>
         </div>
     );
 };

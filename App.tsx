@@ -1,52 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
-import BottomNav from './components/BottomNav';
 import HomePage from './pages/HomePage';
 import AccountPage from './pages/AccountPage';
 import TrackOrderPage from './pages/TrackOrderPage';
 import ContactUsPage from './pages/ContactUsPage';
 import SettingsPage from './pages/SettingsPage';
-import Marquee from './components/Marquee';
 import SideMenu from './components/SideMenu';
+import ShareModal from './components/ShareModal';
+import InstallPage from './pages/InstallPage';
 
 export type Page = 'Home' | 'Account' | 'Track Order' | 'Contact Us' | 'Settings';
 
 const App: React.FC = () => {
     const [currentPage, setCurrentPage] = useState<Page>('Home');
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+    
+    // Check if the current URL is the install page
+    const isInstallPage = window.location.pathname === '/install';
+    const shareUrl = `${window.location.origin}/install`;
+    
+    const handleShare = async () => {
+        setIsMenuOpen(false); // Close menu when share is clicked
+        const shareData = {
+            title: 'Install AdSokoni App',
+            text: 'Check out AdSokoni for great deals on data, minutes, and SMS!',
+            url: shareUrl,
+        };
 
-    useEffect(() => {
-        const registerServiceWorker = () => {
-            if ('serviceWorker' in navigator) {
-                // Construct the absolute URL to the service worker to avoid cross-origin issues
-                // in sandboxed environments where relative paths might be resolved incorrectly.
-                const swUrl = `${window.location.origin}/service-worker.js`;
-                navigator.serviceWorker.register(swUrl)
-                    .then(registration => {
-                        console.log('Service Worker registered with scope:', registration.scope);
-                        if ('Notification' in window) {
-                            Notification.requestPermission(status => {
-                                console.log('Notification permission status:', status);
-                            });
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Service Worker registration failed:', error);
-                    });
+        if (navigator.share) {
+            try {
+                await navigator.share(shareData);
+                console.log('App shared successfully');
+            } catch (err) {
+                console.error('Share failed:', err);
             }
-        };
-
-        // Defer service worker registration until after the page has fully loaded.
-        // This prevents the "document is in an invalid state" error.
-        window.addEventListener('load', registerServiceWorker);
-        
-        // Cleanup the event listener when the component unmounts.
-        return () => {
-            window.removeEventListener('load', registerServiceWorker);
-        };
-    }, []);
+        } else {
+            // Fallback for browsers that do not support the Web Share API
+            setIsShareModalOpen(true);
+        }
+    };
 
     const renderPage = () => {
+        if (isInstallPage) {
+            return <InstallPage />;
+        }
         switch (currentPage) {
             case 'Home':
                 return <HomePage />;
@@ -68,12 +66,28 @@ const App: React.FC = () => {
     };
 
     const handleNavigate = (page: Page) => {
+        // If we are on the install page, a regular navigation should reload the app to the homepage
+        if (isInstallPage) {
+            window.location.href = window.location.origin;
+            return;
+        }
         setCurrentPage(page);
         setIsMenuOpen(false);
     }
 
+    // Don't render the full app shell for the install page to keep it clean
+    if (isInstallPage) {
+        return (
+             <div className="bg-gray-50 dark:bg-gray-900 min-h-screen font-sans flex flex-col max-w-md mx-auto shadow-lg relative overflow-x-hidden">
+                <main className="flex-grow p-4 overflow-y-auto">
+                    {renderPage()}
+                </main>
+            </div>
+        )
+    }
+
     return (
-        <div className="bg-gray-50 min-h-screen font-sans flex flex-col max-w-md mx-auto shadow-lg relative overflow-x-hidden">
+        <div className="bg-gray-50 dark:bg-gray-900 min-h-screen font-sans flex flex-col max-w-md mx-auto shadow-lg relative overflow-x-hidden">
             {/* Overlay */}
             {isMenuOpen && (
                 <div 
@@ -87,17 +101,20 @@ const App: React.FC = () => {
                 onClose={() => setIsMenuOpen(false)} 
                 currentPage={currentPage}
                 onNavigate={handleNavigate}
+                onShare={handleShare}
+            />
+
+            <ShareModal
+                isOpen={isShareModalOpen}
+                onClose={() => setIsShareModalOpen(false)}
+                url={shareUrl}
             />
 
             <div className={`flex flex-col flex-grow w-full transition-transform duration-300 ease-in-out ${isMenuOpen ? 'transform translate-x-64' : ''}`}>
-                <Header title={currentPage} onMenuClick={handleMenuClick} />
-                <main className="flex-grow p-4 pb-32 overflow-y-auto">
+                <Header title="AdSokoni Deals" onMenuClick={handleMenuClick} />
+                <main className="flex-grow p-4 overflow-y-auto">
                     {renderPage()}
                 </main>
-                <footer className="fixed bottom-0 left-0 right-0 max-w-md mx-auto">
-                    <Marquee />
-                    <BottomNav currentPage={currentPage} onNavigate={setCurrentPage} />
-                </footer>
             </div>
         </div>
     );

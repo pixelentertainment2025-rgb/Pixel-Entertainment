@@ -45,7 +45,7 @@ const TrackOrderPage: React.FC = () => {
     return (
         <div className="space-y-6">
             <Card title="Track Your Order">
-                <p className="text-gray-600 mb-4">Enter your transaction ID below to check the status of your purchase.</p>
+                <p className="text-gray-600 dark:text-gray-400 mb-4">Enter your transaction ID below to check the status of your purchase.</p>
                 <div className="space-y-4">
                     <Input
                         label="Transaction ID"
@@ -68,26 +68,26 @@ const TrackOrderPage: React.FC = () => {
                     {transaction && (
                          <div className="space-y-3">
                             <div className="flex justify-between items-center">
-                                <span className="text-gray-500">Status:</span>
+                                <span className="text-gray-500 dark:text-gray-400">Status:</span>
                                 <span className={`font-bold text-sm px-3 py-1 rounded-full ${getStatusColor(transaction.status)}`}>
                                     {transaction.status}
                                 </span>
                             </div>
                              <div className="flex justify-between items-center">
-                                <span className="text-gray-500">Description:</span>
-                                <span className="font-semibold">{transaction.description}</span>
+                                <span className="text-gray-500 dark:text-gray-400">Description:</span>
+                                <span className="font-semibold dark:text-white">{transaction.description}</span>
                             </div>
                              <div className="flex justify-between items-center">
-                                <span className="text-gray-500">Amount:</span>
-                                <span className="font-semibold">KSh {transaction.amount}</span>
+                                <span className="text-gray-500 dark:text-gray-400">Amount:</span>
+                                <span className="font-semibold dark:text-white">KSh {transaction.amount}</span>
                             </div>
                              <div className="flex justify-between items-center">
-                                <span className="text-gray-500">Date:</span>
-                                <span className="font-semibold">{transaction.date}</span>
+                                <span className="text-gray-500 dark:text-gray-400">Date:</span>
+                                <span className="font-semibold dark:text-white">{transaction.date}</span>
                             </div>
                              <div className="flex justify-between items-center">
-                                <span className="text-gray-500">Transaction ID:</span>
-                                <span className="font-semibold">{transaction.id}</span>
+                                <span className="text-gray-500 dark:text-gray-400">Transaction ID:</span>
+                                <span className="font-semibold dark:text-white">{transaction.id}</span>
                             </div>
                         </div>
                     )}

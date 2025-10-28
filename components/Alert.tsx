@@ -10,8 +10,8 @@ interface AlertProps {
 }
 
 const Alert: React.FC<AlertProps> = ({ success, message, onClose }) => {
-    const successClasses = 'bg-green-100 border-green-400 text-green-700';
-    const errorClasses = 'bg-red-100 border-red-400 text-red-700';
+    const successClasses = 'bg-green-100 border-green-400 text-green-700 dark:bg-green-900/30 dark:border-green-700 dark:text-green-300';
+    const errorClasses = 'bg-red-100 border-red-400 text-red-700 dark:bg-red-900/30 dark:border-red-700 dark:text-red-300';
 
     return (
         <div
@@ -21,9 +21,9 @@ const Alert: React.FC<AlertProps> = ({ success, message, onClose }) => {
             <div className="flex items-center">
                 <div className="flex-shrink-0">
                     {success ? (
-                        <CheckIcon className="h-5 w-5 text-green-600" />
+                        <CheckIcon className="h-5 w-5 text-green-600 dark:text-green-400" />
                     ) : (
-                        <ExclamationIcon className="h-5 w-5 text-red-600" />
+                        <ExclamationIcon className="h-5 w-5 text-red-600 dark:text-red-400" />
                     )}
                 </div>
                 <div className="ml-3">
@@ -32,7 +32,7 @@ const Alert: React.FC<AlertProps> = ({ success, message, onClose }) => {
             </div>
             <button
                 onClick={onClose}
-                className="p-1 rounded-full hover:bg-black/10 transition-colors"
+                className="p-1 rounded-full hover:bg-black/10 dark:hover:bg-white/10 transition-colors"
                 aria-label="Dismiss"
             >
                 <CloseIcon className="h-5 w-5" />

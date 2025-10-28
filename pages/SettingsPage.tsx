@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../components/Card';
 import Button from '../components/Button';
+import ThemeToggle from '../components/ThemeToggle';
 
 const SettingsPage: React.FC = () => {
     const [notificationsEnabled, setNotificationsEnabled] = useState(false);
@@ -37,16 +38,26 @@ const SettingsPage: React.FC = () => {
 
     return (
         <div className="space-y-6">
+            <Card title="Appearance">
+                <div className="flex items-center justify-between">
+                    <div>
+                        <p className="font-medium">Dark Mode</p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">Switch between light and dark theme.</p>
+                    </div>
+                    <ThemeToggle />
+                </div>
+            </Card>
+
             <Card title="Notification Settings">
                 <div className="flex items-center justify-between">
                     <div>
                         <p className="font-medium">Push Notifications</p>
-                        <p className="text-sm text-gray-500">Receive alerts for transaction status.</p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">Receive alerts for transaction status.</p>
                     </div>
                     <button
                         onClick={handleNotificationToggle}
                         className={`relative inline-flex items-center h-6 rounded-full w-11 transition-colors ${
-                            notificationsEnabled ? 'bg-brand-green' : 'bg-gray-300'
+                            notificationsEnabled ? 'bg-brand-green' : 'bg-gray-300 dark:bg-gray-600'
                         }`}
                         aria-checked={notificationsEnabled}
                         role="switch"

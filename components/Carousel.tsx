@@ -9,6 +9,7 @@ interface CarouselProps {
 const Carousel: React.FC<CarouselProps> = ({ items, onBuyNowClick }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
+    // Memoized function to advance to the next slide
     const nextSlide = useCallback(() => {
         setCurrentIndex((prevIndex) => (prevIndex === items.length - 1 ? 0 : prevIndex + 1));
     }, [items.length]);
@@ -21,14 +22,17 @@ const Carousel: React.FC<CarouselProps> = ({ items, onBuyNowClick }) => {
         setCurrentIndex(index);
     };
 
+    // Effect to handle automatic slide cycling
     useEffect(() => {
-        const slideInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+        // Set an interval to call nextSlide every 5 seconds
+        const slideInterval = setInterval(nextSlide, 5000);
+        // Clean up the interval when the component unmounts or dependencies change
         return () => clearInterval(slideInterval);
     }, [nextSlide]);
 
     return (
         <div className="relative w-full overflow-hidden rounded-lg shadow-lg">
-            {/* Carousel track */}
+            {/* Carousel track that moves horizontally */}
             <div
                 className="flex transition-transform duration-500 ease-in-out"
                 style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -45,6 +49,7 @@ const Carousel: React.FC<CarouselProps> = ({ items, onBuyNowClick }) => {
                             <h3 className="text-xl font-bold" style={{ textShadow: '1px 1px 3px rgba(0,0,0,0.5)' }}>{item.title}</h3>
                             <p className="mt-1" style={{ textShadow: '1px 1px 3px rgba(0,0,0,0.5)' }}>{item.description}</p>
                         </div>
+                        {/* The onClick for this button is passed from HomePage to handle smooth scrolling */}
                         <button
                             onClick={onBuyNowClick}
                             className="self-start bg-white/90 backdrop-blur-sm text-gray-800 font-bold py-2 px-4 rounded-full hover:bg-white transition-all duration-300 text-sm shadow-md hover:shadow-lg hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-white/50"
@@ -75,7 +80,7 @@ const Carousel: React.FC<CarouselProps> = ({ items, onBuyNowClick }) => {
                 </svg>
             </button>
 
-            {/* Dots */}
+            {/* Dots for direct slide navigation */}
             <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
                 {items.map((_, index) => (
                     <button
