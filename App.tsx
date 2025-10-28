@@ -85,6 +85,8 @@ const App: React.FC = () => {
             </div>
         )
     }
+    
+    const headerTitle = currentPage === 'Home' ? 'AdSokoni Deals' : currentPage;
 
     return (
         <div className="bg-gray-50 dark:bg-gray-900 min-h-screen font-sans flex flex-col max-w-md mx-auto shadow-lg relative overflow-x-hidden">
@@ -111,7 +113,7 @@ const App: React.FC = () => {
             />
 
             <div className={`flex flex-col flex-grow w-full transition-transform duration-300 ease-in-out ${isMenuOpen ? 'transform translate-x-64' : ''}`}>
-                <Header title="AdSokoni Deals" onMenuClick={handleMenuClick} />
+                <Header title={headerTitle} onMenuClick={handleMenuClick} />
                 <main className="flex-grow p-4 overflow-y-auto">
                     {renderPage()}
                 </main>

@@ -37,6 +37,16 @@ export const getUserAccount = async (): Promise<UserAccount> => {
     return mockUser;
 };
 
+// New function to update user account details
+export const updateUserAccount = async (updatedData: Partial<UserAccount>): Promise<UserAccount> => {
+    await delay(800); // simulate network latency for an update
+    // In a real app, you would send this to your backend.
+    // Here, we just merge it into our mock user object.
+    Object.assign(mockUser, updatedData);
+    console.log("Updated user:", mockUser);
+    return { ...mockUser }; // Return a copy
+};
+
 export const getTransactions = async (): Promise<Transaction[]> => {
     await delay(700);
     return mockTransactions;

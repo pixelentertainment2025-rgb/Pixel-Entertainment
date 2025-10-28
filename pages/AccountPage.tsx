@@ -1,14 +1,19 @@
-
 import React, { useEffect, useState } from 'react';
-import { getUserAccount, getTransactions } from '../services/mockApi';
+import { getUserAccount, getTransactions, updateUserAccount } from '../services/mockApi';
 import { Transaction, UserAccount } from '../types';
 import Card from '../components/Card';
 import LoadingSpinner from '../components/LoadingSpinner';
+import Input from '../components/Input';
+import Button from '../components/Button';
+import { EditIcon } from '../components/icons/EditIcon';
 
 const AccountPage: React.FC = () => {
     const [user, setUser] = useState<UserAccount | null>(null);
     const [transactions, setTransactions] = useState<Transaction[]>([]);
     const [loading, setLoading] = useState(true);
+    const [isEditing, setIsEditing] = useState(false);
+    const [editedName, setEditedName] = useState('');
+    const [isSaving, setIsSaving] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -29,6 +34,33 @@ const AccountPage: React.FC = () => {
 
         fetchData();
     }, []);
+    
+    const handleEdit = () => {
+        setIsEditing(true);
+        setEditedName(user!.name);
+    };
+
+    const handleCancel = () => {
+        setIsEditing(false);
+    };
+
+    const handleSave = async () => {
+        if (!editedName.trim() || editedName.trim() === user!.name) {
+            setIsEditing(false);
+            return;
+        }
+        setIsSaving(true);
+        try {
+            const updatedUser = await updateUserAccount({ name: editedName.trim() });
+            setUser(updatedUser);
+            setIsEditing(false);
+        } catch (error) {
+            console.error("Failed to update user", error);
+            // Optionally, show an alert to the user here
+        } finally {
+            setIsSaving(false);
+        }
+    };
     
     const getStatusColor = (status: Transaction['status']) => {
         switch (status) {
@@ -54,8 +86,35 @@ const AccountPage: React.FC = () => {
     return (
         <div className="space-y-6">
             <Card>
-                <h2 className="text-2xl font-bold dark:text-white">{user.name}</h2>
-                <p className="text-gray-600 dark:text-gray-400">{user.phoneNumber}</p>
+                {isEditing ? (
+                    <div className="space-y-4">
+                        <div>
+                            <Input
+                                label="Full Name"
+                                id="user-name"
+                                value={editedName}
+                                onChange={(e) => setEditedName(e.target.value)}
+                            />
+                        </div>
+                        <div className="flex space-x-2 justify-end pt-2">
+                            <Button variant="secondary" onClick={handleCancel} className="w-auto px-4 py-2 text-sm">Cancel</Button>
+                            <Button onClick={handleSave} isLoading={isSaving} disabled={!editedName.trim()} className="w-auto px-4 py-2 text-sm">Save</Button>
+                        </div>
+                    </div>
+                ) : (
+                    <div className="flex justify-between items-start">
+                        <div>
+                            <h2 className="text-2xl font-bold dark:text-white">{user.name}</h2>
+                        </div>
+                        <button
+                            onClick={handleEdit}
+                            className="p-2 rounded-full text-gray-500 hover:bg-gray-100 hover:text-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-200"
+                            aria-label="Edit name"
+                        >
+                            <EditIcon className="w-5 h-5" />
+                        </button>
+                    </div>
+                )}
             </Card>
             
             <Card title="Order Summary">
